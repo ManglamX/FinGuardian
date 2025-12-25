@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinGuardian AI - Financial Intelligence Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect width="32" height="32" rx="8" fill="url(#gradient)"/>
+                        <path d="M16 8L22 12V20L16 24L10 20V12L16 8Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="32" y2="32">
+                                <stop offset="0%" stop-color="#6366f1"/>
+                                <stop offset="100%" stop-color="#8b5cf6"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h1>FinGuardian AI</h1>
+                </div>
+                <div class="header-status">
+                    <div class="status-indicator" id="apiStatus">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Checking...</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section card">
+                <h2 class="section-title">Transaction Analysis</h2>
+                <p class="section-subtitle">Enter transaction and user profile details for AI-powered risk assessment</p>
+                
+                <div class="form-grid">
+                    <!-- Transaction Details -->
+                    <div class="form-group">
+                        <h3 class="form-section-title">Transaction Details</h3>
+                        
+                        <div class="input-group">
+                            <label for="amount">Amount ($)</label>
+                            <input type="number" id="amount" placeholder="5000.00" step="0.01" value="9500">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="hourOfDay">Hour of Day (0-23)</label>
+                            <input type="number" id="hourOfDay" placeholder="14" min="0" max="23" value="14">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="txnFrequency">Transactions in Last Hour</label>
+                            <input type="number" id="txnFrequency" placeholder="3" min="0" value="5">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="txnType">Transaction Type</label>
+                            <select id="txnType">
+                                <option value="TRANSFER">Transfer</option>
+                                <option value="CASH_OUT">Cash Out</option>
+                                <option value="PAYMENT">Payment</option>
+                                <option value="DEBIT">Debit</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="oldBalance">Old Balance ($)</label>
+                            <input type="number" id="oldBalance" placeholder="10000.00" step="0.01" value="10000">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="newBalance">New Balance ($)</label>
+                            <input type="number" id="newBalance" placeholder="500.00" step="0.01" value="500">
+                        </div>
+
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="isNewAccount">
+                                <span>New Account</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="isSuspiciousType">
+                                <span>Suspicious Type</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- User Profile -->
+                    <div class="form-group">
+                        <h3 class="form-section-title">User Profile</h3>
+                        
+                        <div class="input-group">
+                            <label for="avgTxnAmount">Average Transaction Amount ($)</label>
+                            <input type="number" id="avgTxnAmount" placeholder="500.00" step="0.01" value="500">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="txnCount">Total Transaction Count</label>
+                            <input type="number" id="txnCount" placeholder="50" min="0" value="50">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="avgTxnFreq">Average Transaction Frequency</label>
+                            <input type="number" id="avgTxnFreq" placeholder="2.5" step="0.1" value="2.5">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="balanceStability">Balance Stability (0-1)</label>
+                            <input type="number" id="balanceStability" placeholder="0.9" step="0.01" min="0" max="1" value="0.9">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="analyze-btn" id="analyzeBtn">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 3L15 8L10 13M5 8H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Analyze Transaction
+                </button>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <!-- Overall Status -->
+                <div class="card status-card" id="statusCard">
+                    <div class="status-header">
+                        <h2>Overall Decision</h2>
+                        <div class="status-badge" id="overallStatus">ANALYZING...</div>
+                    </div>
+                    <p class="status-description" id="statusDescription"></p>
+                </div>
+
+                <!-- Agent Results Grid -->
+                <div class="agents-grid">
+                    <!-- Fraud Agent -->
+                    <div class="card agent-card">
+                        <div class="agent-header">
+                            <div class="agent-icon fraud-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3>Fraud Detection</h3>
+                                <p class="agent-subtitle">ML-powered anomaly detection</p>
+                            </div>
+                        </div>
+                        
+                        <div class="metric-container">
+                            <div class="metric-label">Fraud Score</div>
+                            <div class="metric-value" id="fraudScore">--</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill fraud-progress" id="fraudProgress"></div>
+                            </div>
+                        </div>
+
+                        <div class="risk-label-container">
+                            <span class="risk-label" id="fraudLabel">--</span>
+                        </div>
+
+                        <div class="risk-factors" id="fraudFactors"></div>
+                    </div>
+
+                    <!-- Compliance Agent -->
+                    <div class="card agent-card">
+                        <div class="agent-header">
+                            <div class="agent-icon compliance-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3>Compliance Check</h3>
+                                <p class="agent-subtitle">Regulatory rule validation</p>
+                            </div>
+                        </div>
+
+                        <div class="compliance-status" id="complianceStatus">
+                            <div class="compliance-flag" id="complianceFlag">--</div>
+                            <div class="compliance-risk" id="complianceRisk">--</div>
+                        </div>
+
+                        <div class="violations-container" id="violationsContainer"></div>
+                    </div>
+
+                    <!-- Credit Agent -->
+                    <div class="card agent-card">
+                        <div class="agent-header">
+                            <div class="agent-icon credit-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3>Credit Assessment</h3>
+                                <p class="agent-subtitle">Creditworthiness evaluation</p>
+                            </div>
+                        </div>
+
+                        <div class="credit-score-container">
+                            <div class="credit-score-circle">
+                                <svg class="credit-circle-svg" viewBox="0 0 120 120">
+                                    <circle cx="60" cy="60" r="50" class="credit-circle-bg"/>
+                                    <circle cx="60" cy="60" r="50" class="credit-circle-progress" id="creditCircle"/>
+                                </svg>
+                                <div class="credit-score-text">
+                                    <div class="credit-score-value" id="creditScore">--</div>
+                                    <div class="credit-score-label">Score</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="risk-label-container">
+                            <span class="risk-label" id="creditRisk">--</span>
+                        </div>
+
+                        <div class="credit-reasons" id="creditReasons"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Loading State -->
+            <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>Analyzing transaction...</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

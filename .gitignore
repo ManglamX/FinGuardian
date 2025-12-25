@@ -1,0 +1,40 @@
+# Data files
+data/raw/paysim.csv
+*.csv
+
+# Environment variables (IMPORTANT: Never commit credentials!)
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test outputs
+test_output.txt
+
+# Node modules (if any)
+node_modules/
+package-lock.json
+
+# Model artifacts (optional - uncomment if models are large)
+# agents/*/artifacts/*.pkl
