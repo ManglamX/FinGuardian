@@ -7,16 +7,16 @@
     --warning: #f59e0b;
     --danger: #ef4444;
     --info: #3b82f6;
-    
+
     --bg-primary: #0f172a;
     --bg-secondary: #1e293b;
     --bg-card: #1e293b;
     --bg-input: #0f172a;
-    
+
     --text-primary: #f1f5f9;
     --text-secondary: #94a3b8;
     --text-muted: #64748b;
-    
+
     --border-color: #334155;
     --border-radius: 12px;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
@@ -93,8 +93,15 @@ body {
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
 }
 
 .status-text {
@@ -241,8 +248,15 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Status Card */
@@ -288,6 +302,24 @@ body {
     background: rgba(239, 68, 68, 0.2);
     color: var(--danger);
     border: 1px solid var(--danger);
+}
+
+.status-badge.allow {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--success);
+    border: 1px solid var(--success);
+}
+
+.status-badge.pause {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--warning);
+    border: 1px solid var(--warning);
+}
+
+.status-badge.verify {
+    background: rgba(139, 92, 246, 0.2);
+    color: var(--secondary);
+    border: 1px solid var(--secondary);
 }
 
 .status-description {
@@ -336,6 +368,21 @@ body {
 .credit-icon {
     background: rgba(16, 185, 129, 0.15);
     color: var(--success);
+}
+
+.behavioral-icon {
+    background: rgba(139, 92, 246, 0.15);
+    color: var(--secondary);
+}
+
+.stress-icon {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--warning);
+}
+
+.regret-icon {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--info);
 }
 
 .agent-header h3 {
@@ -571,7 +618,9 @@ body {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .loading-overlay p {
@@ -584,11 +633,11 @@ body {
     .form-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .agents-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .header-content {
         flex-direction: column;
         gap: 15px;

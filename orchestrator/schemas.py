@@ -47,8 +47,26 @@ class CreditResponse(BaseModel):
     credit_reasons: List[str]
 
 
+class BehavioralResponse(BaseModel):
+    behavior_score: float
+    behavior_reasons: List[str]
+
+class StressResponse(BaseModel):
+    stress_score: float
+    stress_reasons: List[str]
+
+class RegretResponse(BaseModel):
+    regret_score: float
+    regret_reasons: List[str]
+
 class AnalysisResponse(BaseModel):
     fraud: FraudResponse
     compliance: ComplianceResponse
     credit: CreditResponse
+    behavioral: Optional[BehavioralResponse] = None
+    stress: Optional[StressResponse] = None
+    regret: Optional[RegretResponse] = None
     overall_status: str
+    decision: str  # ALLOW, PAUSE, VERIFY, BLOCK
+    total_risk_score: float # 0-1
+    explanation: List[str]
